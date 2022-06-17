@@ -18,14 +18,14 @@ public class UsersController {
         this.userDao = userDao;
     }
 
-    @GetMapping()
+    @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("users", userDao.index());
         return "users/index";
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") long id, Model model) {
+    public String show(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userDao.show(id));
         return "users/show";
     }
@@ -43,19 +43,19 @@ public class UsersController {
     }
 
     @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") long id) {
+    public String edit(Model model, @PathVariable("id") Long id) {
         model.addAttribute("person", userDao.show(id));
         return "users/edit";
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person") User user, @PathVariable("id") long id) {
+    public String update(@ModelAttribute("person") User user, @PathVariable("id") Long id) {
         userDao.update(id, user);
         return "redirect:/users";
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") long id) {
+    public String delete(@PathVariable("id") Long id) {
         userDao.delete(id);
         return "redirect:/users";
     }

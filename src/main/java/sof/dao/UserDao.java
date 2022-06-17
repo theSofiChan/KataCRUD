@@ -7,28 +7,28 @@ import java.util.List;
 @Repository
 public class UserDao {
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("sof");
+    //EntityManagerFactory emf = Persistence.createEntityManagerFactory("sof");
 
     @PersistenceContext
-    private EntityManager entityManager= emf.createEntityManager();
+    private EntityManager entityManager;
 
     public UserDao() {
 
     }
 
     public void save(User user) {
-        entityManager.getTransaction().begin();
+        //entityManager.getTransaction().begin();
         entityManager.persist(user);
-        entityManager.getTransaction().commit();
+        //entityManager.getTransaction().commit();
     }
 
-    public User show(long id) {
+    public User show(Long id) {
         User user = entityManager.getReference(User.class, new Long(id));
         entityManager.detach(user);
         return user;
     }
 
-    public void update(long id, User updateduser){
+    public void update(Long id, User updateduser){
 
         User userToBeUpdated=show(id);
         entityManager.detach(userToBeUpdated);
@@ -36,17 +36,17 @@ public class UserDao {
         userToBeUpdated.setName(updateduser.getName());
         userToBeUpdated.setCountry(updateduser.getCountry());
 
-        entityManager.getTransaction().begin();
+        //entityManager.getTransaction().begin();
         entityManager.merge(userToBeUpdated);
-        entityManager.getTransaction().commit();
+        //entityManager.getTransaction().commit();
     }
 
-    public void delete(long id){
+    public void delete(Long id){
 
-        entityManager.getTransaction().begin();
+        //entityManager.getTransaction().begin();
         User user=show(id);
         entityManager.remove(user);
-        entityManager.getTransaction().commit();
+        //entityManager.getTransaction().commit();
 
     }
 
